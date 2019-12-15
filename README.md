@@ -25,7 +25,22 @@ set service nat rule 5000 type masquerade
 commit
 save
 ```
+
+
+For [OpenWRT](https://openwrt.org) users, the following below should work for your case
+```bash
+uci set network.CM_ACCESS=interface
+uci set network.CM_ACCESS.proto='static'
+uci set network.CM_ACCESS.ifname='eth0.2'
+uci set network.CM_ACCESS.ipaddr='192.168.0.2'
+uci set network.CM_ACCESS.netmask='255.255.255.0'
+uci commit
+/etc/init.d/network restart
+```
+Remember to replace `CM_ACCESS` with the name of interface you wish to name it as, `eth0.2` with the actual interface of your "WAN" which should begin with the words `eth` not `wan` for example. Alternatively, there is a [LuCI/webUI guide](https://simplebeian.wordpress.com/2014/03/12/accessing-your-modem-from-openwrt-router/), should you prefer to go through that route.
+
 ![Grafana Overview](https://raw.githubusercontent.com/risb0r/Arris-CM8200-to-InfluxDB/master/images/overview.png)
+
 
 ## Installation
 
